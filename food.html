@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style:none ;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul id="foods">
+            <li>
+                <img src="" alt="Pizza">
+                <h2>Pizza</h2>
+            </li>
+
+        </ul>
+    </div>
+
+    <script>
+        async function getfoods() {
+            const apiUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            console.log(data);
+            const foods = data.meals
+            console.log(foods[0]);
+            console.log(foods[1]);
+            const displayfoods = document.getElementById('foods');
+            foods.forEach(foods=> {
+                const foodItem = document.createElement('li');
+                foodItem.innerHTML =`
+                    <img width="200" src="${foods.strMealThumb}" alt="${foods.strMeal}">
+                    <h2>${foods.strMeal7}</h2>
+                `;
+                displayfoods.appendChild(foodItem);
+            });
+        }
+        //call function
+        getfoods();
+
+    </script>
+</body>
+</html>  
